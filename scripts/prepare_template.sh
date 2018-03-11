@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -e
+set -x
+
 # # Add usernames to add to /etc/sudoers for passwordless sudo
 # users=("ubuntu" "admin")
 #
@@ -18,7 +21,15 @@ if [ -f /etc/debian_version ]; then
   sudo apt-get update
 
   #install packages
-  sudo apt-get install -y python-minimal open-vm-tools
+  sudo apt-get install -y python-minimal
+
+  if [ "$PACKER_BUILDER_TYPE" == "vmware-iso" ]; then
+    sudo apt-get install -y open-vm-tools
+  fi
+
+  if [ "$PACKER_BUILDER_TYPE" == "virtualbox-iso" ]; then
+    sudo apt-get install -y virtualbox-guest-dkms
+  fi
 
   #cleanup apt
   sudo apt-get clean
@@ -35,15 +46,30 @@ if [ -f /etc/redhat-release ]; then
   if [ -f /etc/os-release ]; then
     codename="$(gawk -F= '/^NAME/{print $2}' /etc/os-release)"
     if [[ $codename != "Fedora" ]]; then
-      sudo yum -y install python-devel open-vm-tools && \
+      sudo yum -y install python-devel && \
         sudo yum -y group install "C Development Tools and Libraries"
+      if [ "$PACKER_BUILDER_TYPE" == "vmware-iso" ]; then
+        sudo yum -y install open-vm-tools
+      fi
     fi
     if [[ $codename == "Fedora" ]]; then
-      sudo dnf -y install python-devel python-dnf open-vm-tools && \
+      sudo dnf -y install python-devel python-dnf && \
         sudo dnf -y group install "C Development Tools and Libraries"
+      if [ "$PACKER_BUILDER_TYPE" == "vmware-iso" ]; then
+        sudo dnf -y install open-vm-tools
+      fi
     fi
   fi
 fi
+
+# if [ "$PACKER_BUILDER_TYPE" == "virtualbox-iso" ]; then
+#   sudo mkdir -p /mnt/virtualbox
+#   sudo mount -o loop /home/packer/VBoxGuestAdditions.iso /mnt/virtualbox
+#   sudo sh /mnt/virtualbox/VBoxLinuxAdditions.run
+#   sudo ln -s /opt/VBoxGuestAdditions-*/lib/VBoxGuestAdditions /usr/lib/VBoxGuestAdditions
+#   sudo umount /mnt/virtualbox
+#   sudo rm -rf /home/packer/VBoxGuestAdditions.iso
+# fi
 
 #Stop services for cleanup
 sudo service rsyslog stop
