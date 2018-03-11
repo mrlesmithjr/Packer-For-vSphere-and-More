@@ -1,0 +1,44 @@
+{
+  "variables": {
+    "iso_checksum": "",
+    "iso_checksum_type": "",
+    "iso_url": "",
+    "vm_disk_adapter_type": "",
+    "vm_disk_size": "",
+    "vm_memory": "",
+    "vm_name": "",
+    "vm_ssh_password": "",
+    "vm_ssh_username": "",
+    "vm_vcpu": ""
+  },
+  "builders": [{
+    "boot_command": [
+      "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
+    ],
+    "disk_adapter_type": "{{ user ` vm_disk_adapter_type` }}",
+    "disk_size": "{{ user `vm_disk_size` }}",
+    "disk_type_id": 0,
+    "headless": true,
+    "http_directory": "http",
+    "iso_checksum_type": "{{ user `iso_checksum_type` }}",
+    "iso_checksum": "{{ user `iso_checksum` }}",
+    "iso_url": "{{ user `iso_url` }}",
+    "name": "{{ user `vm_name` }}",
+    "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'packer'|sudo -S bash 'shutdown.sh'",
+    "ssh_password": "{{ user `vm_ssh_password` }}",
+    "ssh_username": "{{ user `vm_ssh_username` }}",
+    "ssh_wait_timeout": "10000s",
+    "type": "vmware-iso",
+    "vm_name": "{{ user `vm_name` }}",
+    "vmx_data": {
+      "memsize": "{{ user `vm_memory` }}",
+      "numvcpus": "{{ user `vm_vcpu` }}"
+    }
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "scripts": [
+      "scripts/prepare_centos_template.sh"
+    ]
+  }]
+}

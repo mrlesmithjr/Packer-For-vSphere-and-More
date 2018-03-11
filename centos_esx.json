@@ -1,0 +1,81 @@
+{
+  "variables": {
+    "esxi_remote_host": "",
+    "esxi_remote_password": "",
+    "esxi_remote_username": "",
+    "iso_checksum": "",
+    "iso_checksum_type": "",
+    "iso_url": "",
+    "vcenter_datacenter": "",
+    "vcenter_datastore": "",
+    "vcenter_host": "",
+    "vcenter_insecure": "",
+    "vcenter_password": "",
+    "vcenter_username": "",
+    "vm_disk_adapter_type": "",
+    "vm_disk_size": "",
+    "vm_guest_os_type": "centos-64",
+    "vm_memory": "",
+    "vm_name": "",
+    "vm_network": "",
+    "vm_ssh_password": "",
+    "vm_ssh_username": "",
+    "vm_vcpu": ""
+  },
+  "builders": [{
+    "boot_command": [
+      "<tab> inst.text inst.ks=hd:fd0:/ks.cfg <enter><wait>"
+    ],
+    "disk_adapter_type": "{{ user ` vm_disk_adapter_type` }}",
+    "disk_size": "{{ user `vm_disk_size` }}",
+    "disk_type_id": "thin",
+    "floppy_files": [
+      "http/ks.cfg"
+    ],
+    "guest_os_type": "{{ user `vm_guest_os_type` }}",
+    "iso_checksum_type": "{{ user `iso_checksum_type` }}",
+    "iso_checksum": "{{ user `iso_checksum` }}",
+    "iso_url": "{{ user `iso_url` }}",
+    "name": "{{ user `vm_name` }}",
+    "output_directory": "{{ user `vm_name` }}",
+    "remote_datastore": "{{ user `vcenter_datastore` }}",
+    "remote_host": "{{ user `esxi_remote_host` }}",
+    "remote_password": "{{ user `esxi_remote_password` }}",
+    "remote_type": "esx5",
+    "remote_username": "{{ user `esxi_remote_username` }}",
+    "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'packer'|sudo -S bash 'shutdown.sh'",
+    "ssh_password": "{{ user `vm_ssh_password` }}",
+    "ssh_username": "{{ user `vm_ssh_username` }}",
+    "ssh_wait_timeout": "60m",
+    "type": "vmware-iso",
+    "vm_name": "{{ user `vm_name` }}",
+    "vmx_data": {
+      "memsize": "{{ user `vm_memory` }}",
+      "numvcpus": "{{ user `vm_vcpu` }}",
+
+      "ethernet0.networkName": "{{ user `vm_network` }}",
+      "ethernet0.present": "TRUE",
+      "ethernet0.startConnected": "TRUE",
+      "ethernet0.virtualDev": "vmxnet3",
+      "ethernet0.addressType": "generated",
+      "ethernet0.wakeOnPcktRcv": "FALSE"
+    }
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "scripts": [
+      "scripts/prepare_centos_template.sh"
+    ]
+  }],
+  "post-processors": [
+    [{
+      "datacenter": "{{ user `vcenter_datacenter` }}",
+      "host": "{{ user `vcenter_host` }}",
+      "insecure": "{{ user `vcenter_insecure`}}",
+      "password": "{{ user `vcenter_password` }}",
+      "type": "vsphere-template",
+      "username": "{{ user `vcenter_username` }}"
+    }]
+  ]
+
+}
