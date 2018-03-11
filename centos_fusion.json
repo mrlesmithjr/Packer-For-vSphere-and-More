@@ -13,13 +13,15 @@
   },
   "builders": [{
     "boot_command": [
-      "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
+      "<tab> inst.text inst.ks=hd:fd0:/ks.cfg <enter><wait>"
     ],
     "disk_adapter_type": "{{ user ` vm_disk_adapter_type` }}",
     "disk_size": "{{ user `vm_disk_size` }}",
     "disk_type_id": 0,
+    "floppy_files": [
+      "http/ks.cfg"
+    ],
     "headless": true,
-    "http_directory": "http",
     "iso_checksum_type": "{{ user `iso_checksum_type` }}",
     "iso_checksum": "{{ user `iso_checksum` }}",
     "iso_url": "{{ user `iso_url` }}",
@@ -27,7 +29,7 @@
     "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'packer'|sudo -S bash 'shutdown.sh'",
     "ssh_password": "{{ user `vm_ssh_password` }}",
     "ssh_username": "{{ user `vm_ssh_username` }}",
-    "ssh_wait_timeout": "10000s",
+    "ssh_wait_timeout": "60m",
     "type": "vmware-iso",
     "vm_name": "{{ user `vm_name` }}",
     "vmx_data": {
@@ -38,7 +40,7 @@
   "provisioners": [{
     "type": "shell",
     "scripts": [
-      "scripts/prepare_centos_template.sh"
+      "scripts/prepare_template.sh"
     ]
   }]
 }

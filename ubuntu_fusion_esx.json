@@ -41,15 +41,17 @@
       " netcfg/get_hostname=packer<wait>",
       " grub-installer/bootdev=/dev/sda<wait>",
       " noapic<wait>",
-      " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg<wait>",
+      " preseed/file=/floppy/preseed.cfg<wait>",
       " -- <wait>",
       "<enter><wait>"
     ],
     "disk_adapter_type": "{{ user ` vm_disk_adapter_type` }}",
     "disk_size": "{{ user `vm_disk_size` }}",
     "disk_type_id": 0,
+    "floppy_files": [
+      "http/preseed.cfg"
+    ],
     "headless": true,
-    "http_directory": "http",
     "iso_checksum_type": "{{ user `iso_checksum_type` }}",
     "iso_checksum": "{{ user `iso_checksum` }}",
     "iso_url": "{{ user `iso_url` }}",
@@ -57,6 +59,7 @@
     "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'packer'|sudo -S bash 'shutdown.sh'",
     "ssh_password": "{{ user `vm_ssh_password` }}",
     "ssh_username": "{{ user `vm_ssh_username` }}",
+    "ssh_wait_timeout": "60m",
     "type": "vmware-iso",
     "vm_name": "{{ user `vm_name` }}",
     "vmx_data": {
@@ -67,7 +70,7 @@
   "provisioners": [{
     "type": "shell",
     "scripts": [
-      "scripts/prepare_ubuntu_template.sh"
+      "scripts/prepare_template.sh"
     ]
   }],
   "post-processors": [

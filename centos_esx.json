@@ -64,7 +64,7 @@
   "provisioners": [{
     "type": "shell",
     "scripts": [
-      "scripts/prepare_centos_template.sh"
+      "scripts/prepare_template.sh"
     ]
   }],
   "post-processors": [

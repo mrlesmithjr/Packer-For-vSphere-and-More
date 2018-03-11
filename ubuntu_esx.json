@@ -85,7 +85,7 @@
   "provisioners": [{
     "type": "shell",
     "scripts": [
-      "scripts/prepare_ubuntu_template.sh"
+      "scripts/prepare_template.sh"
     ]
   }],
   "post-processors": [
