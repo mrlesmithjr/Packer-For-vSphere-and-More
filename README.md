@@ -1,3 +1,41 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Packer For vSphere and More](#packer-for-vsphere-and-more)
+  - [Requirements](#requirements)
+    - [Required Software](#required-software)
+    - [Required Secret Variables](#required-secret-variables)
+    - [Required Variables](#required-variables)
+    - [Required ESXi Tweaks](#required-esxi-tweaks)
+  - [Usage](#usage)
+    - [VMware Fusion And VirtualBox](#vmware-fusion-and-virtualbox)
+      - [CentOS 6](#centos-6)
+      - [CentOS 7](#centos-7)
+      - [Ubuntu 12.04](#ubuntu-1204)
+      - [Ubuntu 14.04](#ubuntu-1404)
+      - [Ubuntu 16.04](#ubuntu-1604)
+    - [Using Vagrant](#using-vagrant)
+      - [Vagrant Boxes](#vagrant-boxes)
+        - [Importing Vagrant Boxes](#importing-vagrant-boxes)
+        - [Consuming Vagrant Boxes](#consuming-vagrant-boxes)
+    - [VMware Fusion Export To vSphere](#vmware-fusion-export-to-vsphere)
+      - [CentOS 6](#centos-6-1)
+      - [CentOS 7](#centos-7-1)
+      - [Ubuntu 12.04](#ubuntu-1204-1)
+      - [Ubuntu 14.04](#ubuntu-1404-1)
+      - [Ubuntu 16.04](#ubuntu-1604-1)
+    - [VMware vSphere](#vmware-vsphere)
+      - [CentOS 6](#centos-6-2)
+      - [CentOS 7](#centos-7-2)
+      - [Ubuntu 12.04](#ubuntu-1204-2)
+      - [Ubuntu 14.04](#ubuntu-1404-2)
+      - [Ubuntu 16.04](#ubuntu-1604-2)
+  - [License](#license)
+  - [Author Information](#author-information)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Packer For vSphere and More
 
 This repo is for creating a consistent and repeatable VM templates. No matter
@@ -295,3 +333,15 @@ packer build -var-file=private_variables.json -var-file=variables.json -var-file
 ```bash
 packer build -var-file=private_variables.json -var-file=variables.json -var-file=ubuntu1604.json ubuntu_esx.json
 ```
+
+## License
+
+MIT
+
+## Author Information
+
+Larry Smith Jr.
+
+-   [EverythingShouldBeVirtual](http://everythingshouldbevirtual.com)
+-   [@mrlesmithjr](https://www.twitter.com/mrlesmithjr)
+-   <mailto:mrlesmithjr@gmail.com>
