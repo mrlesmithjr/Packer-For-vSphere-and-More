@@ -18,7 +18,7 @@ set -x
 # Debian/Ubuntu
 if [ -f /etc/debian_version ]; then
   sudo /usr/sbin/groupadd vagrant
-  sudo /usr/sbin/useradd vagrant -g vagrant
+  sudo /usr/sbin/useradd vagrant -g vagrant -s /bin/bash
   echo -e "vagrant\nvagrant" | sudo passwd vagrant
   sudo bash -c "echo 'vagrant        ALL=(ALL)       NOPASSWD: ALL' >> /etc/sudoers"
 fi
