@@ -1,0 +1,5 @@
+.DS_Store
+*.box
+output-*
+packer_cache/
+private_variables.json
