@@ -46,30 +46,34 @@ if [ -f /etc/redhat-release ]; then
   if [ -f /etc/os-release ]; then
     codename="$(gawk -F= '/^NAME/{print $2}' /etc/os-release)"
     if [[ $codename != "Fedora" ]]; then
-      sudo yum -y install python-devel && \
-        sudo yum -y group install "C Development Tools and Libraries"
+      sudo yum -y install python-devel
+      if [ "$PACKER_BUILDER_TYPE" == "virtualbox-iso" ]; then
+        sudo yum -y install gcc make gcc-c++ kernel-devel.x86_64 perl wget && \
+          sudo yum -y group install "Development Tools"
+      fi
       if [ "$PACKER_BUILDER_TYPE" == "vmware-iso" ]; then
         sudo yum -y install open-vm-tools
       fi
     fi
     if [[ $codename == "Fedora" ]]; then
-      sudo dnf -y install python-devel python-dnf && \
-        sudo dnf -y group install "C Development Tools and Libraries"
+      sudo dnf -y install python-devel python-dnf
+      if [ "$PACKER_BUILDER_TYPE" == "virtualbox-iso" ]; then
+        sudo dnf -y install gcc make gcc-c++ kernel-devel.x86_64 perl wget && \
+          sudo dnf -y group install "Development Tools"
+      fi
       if [ "$PACKER_BUILDER_TYPE" == "vmware-iso" ]; then
         sudo dnf -y install open-vm-tools
       fi
     fi
   fi
+  if [ "$PACKER_BUILDER_TYPE" == "virtualbox-iso" ]; then
+    sudo mkdir -p /mnt/virtualbox
+    sudo mount -o loop /home/packer/VBoxGuestAdditions.iso /mnt/virtualbox
+    sudo sh /mnt/virtualbox/VBoxLinuxAdditions.run
+    sudo umount /mnt/virtualbox
+    sudo rm -rf /home/packer/VBoxGuestAdditions.iso
+  fi
 fi
-
-# if [ "$PACKER_BUILDER_TYPE" == "virtualbox-iso" ]; then
-#   sudo mkdir -p /mnt/virtualbox
-#   sudo mount -o loop /home/packer/VBoxGuestAdditions.iso /mnt/virtualbox
-#   sudo sh /mnt/virtualbox/VBoxLinuxAdditions.run
-#   sudo ln -s /opt/VBoxGuestAdditions-*/lib/VBoxGuestAdditions /usr/lib/VBoxGuestAdditions
-#   sudo umount /mnt/virtualbox
-#   sudo rm -rf /home/packer/VBoxGuestAdditions.iso
-# fi
 
 #Stop services for cleanup
 sudo service rsyslog stop

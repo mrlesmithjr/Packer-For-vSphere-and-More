@@ -1,0 +1,78 @@
+{
+  "variables": {
+    "boot_command_prefix": "",
+    "compression_level": "6",
+    "iso_checksum": "",
+    "iso_checksum_type": "",
+    "iso_url": "",
+    "vm_disk_adapter_type": "",
+    "vm_disk_size": "",
+    "vm_memory": "",
+    "vm_name": "",
+    "vm_ssh_password": "",
+    "vm_ssh_username": "",
+    "vm_vcpu": ""
+  },
+  "builders": [{
+      "boot_command": [
+        "<tab> inst.text inst.ks=hd:fd0:/ks.cfg <enter><wait>"
+      ],
+      "disk_size": "{{ user `vm_disk_size` }}",
+      "floppy_files": [
+        "http/ks.cfg"
+      ],
+      "guest_os_type": "RedHat_64",
+      "hard_drive_interface": "{{ user ` vm_disk_adapter_type` }}",
+      "headless": true,
+      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
+      "iso_checksum": "{{ user `iso_checksum` }}",
+      "iso_url": "{{ user `iso_url` }}",
+      "keep_registered": true,
+      "output_directory": "output-{{ user `vm_name` }}-{{ build_type }}",
+      "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'packer'|sudo -S bash 'shutdown.sh'",
+      "ssh_password": "{{ user `vm_ssh_password` }}",
+      "ssh_username": "{{ user `vm_ssh_username` }}",
+      "ssh_wait_timeout": "60m",
+      "type": "virtualbox-iso",
+      "vboxmanage": [
+        ["modifyvm", "{{.Name}}", "--memory", "{{ user `vm_memory` }}"],
+        ["modifyvm", "{{.Name}}", "--cpus", "{{ user `vm_vcpu` }}"]
+      ],
+      "vm_name": "{{ user `vm_name` }}"
+    },
+    {
+      "boot_command": [
+        "<tab> inst.text inst.ks=hd:fd0:/ks.cfg <enter><wait>"
+      ],
+      "disk_adapter_type": "{{ user ` vm_disk_adapter_type` }}",
+      "disk_size": "{{ user `vm_disk_size` }}",
+      "disk_type_id": 0,
+      "floppy_files": [
+        "http/ks.cfg"
+      ],
+      "guest_os_type": "centos-64",
+      "headless": true,
+      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
+      "iso_checksum": "{{ user `iso_checksum` }}",
+      "iso_url": "{{ user `iso_url` }}",
+      "keep_registered": true,
+      "output_directory": "output-{{ user `vm_name` }}-{{ build_type }}",
+      "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'packer'|sudo -S bash 'shutdown.sh'",
+      "ssh_password": "{{ user `vm_ssh_password` }}",
+      "ssh_username": "{{ user `vm_ssh_username` }}",
+      "ssh_wait_timeout": "60m",
+      "type": "vmware-iso",
+      "vm_name": "{{ user `vm_name` }}",
+      "vmx_data": {
+        "memsize": "{{ user `vm_memory` }}",
+        "numvcpus": "{{ user `vm_vcpu` }}"
+      }
+    }
+  ],
+  "provisioners": [{
+    "type": "shell",
+    "scripts": [
+      "scripts/prepare_template.sh"
+    ]
+  }]
+}
