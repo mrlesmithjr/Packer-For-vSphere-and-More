@@ -47,7 +47,6 @@
       "iso_checksum_type": "{{ user `iso_checksum_type` }}",
       "iso_checksum": "{{ user `iso_checksum` }}",
       "iso_url": "{{ user `iso_url` }}",
-      "keep_registered": true,
       "output_directory": "output-{{ user `vm_name` }}-{{ build_type }}",
       "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'packer'|sudo -S bash 'shutdown.sh'",
       "ssh_password": "{{ user `vm_ssh_password` }}",
@@ -95,7 +94,6 @@
       "iso_checksum_type": "{{ user `iso_checksum_type` }}",
       "iso_checksum": "{{ user `iso_checksum` }}",
       "iso_url": "{{ user `iso_url` }}",
-      "keep_registered": true,
       "output_directory": "output-{{ user `vm_name` }}-{{ build_type }}",
       "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'packer'|sudo -S bash 'shutdown.sh'",
       "ssh_password": "{{ user `vm_ssh_password` }}",
@@ -112,7 +110,18 @@
   "provisioners": [{
     "type": "shell",
     "scripts": [
-      "scripts/prepare_template.sh"
+      "scripts/base.sh",
+      "scripts/vagrant.sh",
+      "scripts/virtualbox.sh",
+      "scripts/vmware.sh",
+      "scripts/cleanup.sh"
     ]
-  }]
+  }],
+  "post-processors": [
+    [{
+      "compression_level": "{{ user `compression_level` }}",
+      "output": "{{ user `vm_name` }}-{{.Provider}}.box",
+      "type": "vagrant"
+    }]
+  ]
 }

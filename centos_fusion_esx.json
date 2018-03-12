@@ -49,7 +49,9 @@
   "provisioners": [{
     "type": "shell",
     "scripts": [
-      "scripts/prepare_template.sh"
+      "scripts/base.sh",
+      "scripts/vmware.sh",
+      "scripts/cleanup.sh"
     ]
   }],
   "post-processors": [
