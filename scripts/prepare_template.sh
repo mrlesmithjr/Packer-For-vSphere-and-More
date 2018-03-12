@@ -17,6 +17,14 @@ set -x
 
 # Debian/Ubuntu
 if [ -f /etc/debian_version ]; then
+  codename="$(facter lsbdistcodename)"
+
+  # We need to cleanup for old repo update issues for hash mismatch
+  if [[ $codename == "precise" ]]; then
+    sudo apt-get clean
+    sudo rm -r /var/lib/apt/lists/*
+  fi
+
   #update apt-cache
   sudo apt-get update
 
@@ -44,11 +52,11 @@ fi
 # RHEL
 if [ -f /etc/redhat-release ]; then
   if [ -f /etc/os-release ]; then
-    codename="$(gawk -F= '/^NAME/{print $2}' /etc/os-release)"
+    codename="$(facter operatingsystem)"
     if [[ $codename != "Fedora" ]]; then
       sudo yum -y install python-devel
       if [ "$PACKER_BUILDER_TYPE" == "virtualbox-iso" ]; then
-        sudo yum -y install gcc make gcc-c++ kernel-devel.x86_64 perl wget && \
+        sudo yum -y install gcc kernel-devel kernel-headers dkms make bzip2 perl && \
           sudo yum -y group install "Development Tools"
       fi
       if [ "$PACKER_BUILDER_TYPE" == "vmware-iso" ]; then
@@ -58,7 +66,7 @@ if [ -f /etc/redhat-release ]; then
     if [[ $codename == "Fedora" ]]; then
       sudo dnf -y install python-devel python-dnf
       if [ "$PACKER_BUILDER_TYPE" == "virtualbox-iso" ]; then
-        sudo dnf -y install gcc make gcc-c++ kernel-devel.x86_64 perl wget && \
+        sudo dnf -y install gcc kernel-devel kernel-headers dkms make bzip2 perl && \
           sudo dnf -y group install "Development Tools"
       fi
       if [ "$PACKER_BUILDER_TYPE" == "vmware-iso" ]; then
@@ -72,6 +80,13 @@ if [ -f /etc/redhat-release ]; then
     sudo sh /mnt/virtualbox/VBoxLinuxAdditions.run
     sudo umount /mnt/virtualbox
     sudo rm -rf /home/packer/VBoxGuestAdditions.iso
+  fi
+  if [[ $codename != "Fedora" ]]; then
+    sudo yum clean all
+    sudo rm -rf /var/cache/yum
+  fi
+  if [[ $codename == "Fedora" ]]; then
+    sudo dnf clean all
   fi
 fi
 
