@@ -1,4 +1,5 @@
 {
+  "boot_command_prefix": "<tab> text ks=floppy:/ks.cfg <enter><wait>",
   "iso_checksum": "422af57b493b8af49d485885a730c5a1d955f803fac85aa51311c393168b9080",
   "iso_checksum_type": "sha256",
   "iso_url": "http://mirror.san.fastserv.com/pub/linux/centos/6.9/isos/x86_64/CentOS-6.9-x86_64-minimal.iso",
