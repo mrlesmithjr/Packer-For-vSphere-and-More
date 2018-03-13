@@ -1,0 +1,24 @@
+---
+- hosts: localhost
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: Generating Kickstart Configuration
+      template:
+        src: templates/ks.cfg.j2
+        dest: ../http/ks.cfg
+
+    - name: Generating Preseed Configuration
+      template:
+        src: templates/preseed.cfg.j2
+        dest: ../http/preseed.cfg
+
+    - name: Generating Packer Variables
+      template:
+        src: templates/variables.json.j2
+        dest: ../variables.json
+
+    - name: Generating Packer Private Variables
+      template:
+        src: templates/private_variables.json.j2
+        dest: ../private_variables.json

@@ -1,13 +1,11 @@
-#
-# Ansible managed
-#
+{{ ansible_managed|comment }}
 
 # Required settings
 lang en_US.UTF-8
 keyboard us
-rootpw packer
+rootpw {{ root_password }}
 authconfig --enableshadow --enablemd5
-timezone UTC
+timezone {{ timezone }}
 
 # Optional settings
 autopart
@@ -41,8 +39,8 @@ wget
 /usr/bin/yum -y update
 /usr/bin/yum -y install epel-release
 /usr/bin/yum -y install facter sudo
-/usr/sbin/groupadd packer
-/usr/sbin/useradd packer -g packer -G wheel
-echo "packer"|passwd --stdin packer
-echo "packer        ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers
+/usr/sbin/groupadd {{ default_username }}
+/usr/sbin/useradd {{ default_username }} -g {{ default_username }} -G wheel
+echo "{{ default_password }}"|passwd --stdin {{ default_username }}
+echo "{{ default_username }}        ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers
 %end
