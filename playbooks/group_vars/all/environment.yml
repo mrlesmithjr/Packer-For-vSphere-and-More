@@ -1,0 +1,24 @@
+---
+# Define ESXi host to connect to for building images/templates
+esxi_host: "esxi-01.{{ pri_domain_name }}"
+
+# Define domain name for environment
+pri_domain_name: lab.etsbv.internal
+
+# Define timezone to use for images/templates
+timezone: UTC
+
+# Define the vCenter cluster to use for images/templates
+vcenter_cluster: LAB-Cluster
+
+# Define the vCenter datacenter to use for images/templates
+vcenter_datacenter: LAB
+
+# Define the datastore to use for images/templates
+vcenter_datastore: vSphere_iSCSI_Datastore_2
+
+# Define the vCenter host to connect to for building images/templates
+vcenter_host: "vcsa.{{ pri_domain_name }}"
+
+# Define the default VM network to build images/templates
+vm_network: VSS-VLAN-102

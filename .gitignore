@@ -1,5 +1,6 @@
 .DS_Store
 *.box
+accounts.yml
 output-*
 packer_cache/
 private_variables.json

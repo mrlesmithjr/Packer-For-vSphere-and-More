@@ -1,12 +1,13 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Packer For vSphere and More](#packer-for-vsphere-and-more)
   - [Requirements](#requirements)
     - [Required Software](#required-software)
     - [Required Secret Variables](#required-secret-variables)
     - [Required Variables](#required-variables)
+    - [Updating/Creating Environment Variables and Etc. Using Ansible](#updatingcreating-environment-variables-and-etc-using-ansible)
     - [Required ESXi Tweaks](#required-esxi-tweaks)
   - [Usage](#usage)
     - [VMware Fusion And VirtualBox](#vmware-fusion-and-virtualbox)
@@ -46,6 +47,7 @@ remain identical. This ensures that environments are built the same.
 
 ### Required Software
 
+-   [Ansible](https://www.ansible.com)
 -   [OVF Tool](https://www.vmware.com/support/developer/ovf/)
 -   [Packer](https://www.packer.io)
 -   [PowerShell](https://github.com/PowerShell/PowerShell)
@@ -57,6 +59,8 @@ remain identical. This ensures that environments are built the same.
 
 As part of this you will need to create a `JSON` file with some of the secret
 private variables. This file should be excluded from version control.
+
+> NOTE: Only required if not using Ansible to update environment as below.
 
 `private_variables.json`:
 
@@ -75,6 +79,25 @@ private variables. This file should be excluded from version control.
 
 The variables defined in [variables.json](./variables.json) need to be defined
 as required for your environment.
+
+> NOTE: Only required if not using Ansible to update environment as below.
+
+### Updating/Creating Environment Variables and Etc. Using Ansible
+
+In order to automate things easily so we do not forget anything we can also use
+Ansible to update/create our variables, kickstart, and preseed configurations.
+You will just need to update the variables in the following files to meet your
+requirements.
+
+-   [playbooks/group_vars/all/accounts.yml](playbooks/group_vars/all/accounts.yml)
+-   [playbooks/group_vars/all/environment.yml](playbooks/group_vars/all/environment.yml)
+
+Once you have updated the above variables you can then run the following Ansible
+playbook to configure environmentals.
+
+```bash
+ansible-playbook playbooks/generate_configs.yml
+```
 
 ### Required ESXi Tweaks
 
