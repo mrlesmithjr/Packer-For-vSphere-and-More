@@ -1,5 +1,6 @@
 {
   "variables": {
+    "boot_command_prefix": "",
     "esxi_remote_host": "",
     "esxi_remote_password": "",
     "esxi_remote_username": "",
@@ -24,7 +25,7 @@
   },
   "builders": [{
     "boot_command": [
-      "<tab> inst.text inst.ks=hd:fd0:/ks.cfg <enter><wait>"
+      "{{ user `boot_command_prefix` }}"
     ],
     "disk_adapter_type": "{{ user ` vm_disk_adapter_type` }}",
     "disk_size": "{{ user `vm_disk_size` }}",
