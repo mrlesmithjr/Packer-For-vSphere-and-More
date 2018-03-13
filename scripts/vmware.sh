@@ -14,13 +14,11 @@ fi
 
 # RHEL
 if [ -f /etc/redhat-release ]; then
-  if [ -f /etc/os-release ]; then
-    codename="$(facter operatingsystem)"
-    if [[ $codename != "Fedora" ]]; then
-      sudo yum -y install open-vm-tools
-    fi
-    if [[ $codename == "Fedora" ]]; then
-      sudo dnf -y install open-vm-tools
-    fi
+  codename="$(facter operatingsystem)"
+  if [[ $codename != "Fedora" ]]; then
+    sudo yum -y install open-vm-tools
+  fi
+  if [[ $codename == "Fedora" ]]; then
+    sudo dnf -y install open-vm-tools
   fi
 fi

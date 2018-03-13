@@ -28,13 +28,11 @@ fi
 
 # RHEL
 if [ -f /etc/redhat-release ]; then
-  if [ -f /etc/os-release ]; then
-    codename="$(facter operatingsystem)"
-    if [[ $codename != "Fedora" ]]; then
-      sudo yum -y install python-devel
-    fi
-    if [[ $codename == "Fedora" ]]; then
-      sudo dnf -y install python-devel python-dnf
-    fi
+  codename="$(facter operatingsystem)"
+  if [[ $codename != "Fedora" ]]; then
+    sudo yum -y install python-devel
+  fi
+  if [[ $codename == "Fedora" ]]; then
+    sudo dnf -y install python-devel python-dnf
   fi
 fi
