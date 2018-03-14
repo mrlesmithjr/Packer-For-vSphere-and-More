@@ -1,41 +1,37 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
-
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
--   [Packer For vSphere and More](#packer-for-vsphere-and-more)
-    -   [Requirements](#requirements)
-        -   [Required Software](#required-software)
-        -   [Required Secret Variables](#required-secret-variables)
-        -   [Required Variables](#required-variables)
-        -   [Updating/Creating Environment Variables and Etc. Using Ansible](#updatingcreating-environment-variables-and-etc-using-ansible)
-        -   [Required ESXi Tweaks](#required-esxi-tweaks)
-    -   [Usage](#usage)
-        -   [VMware Fusion And VirtualBox](#vmware-fusion-and-virtualbox)
-            -   [CentOS 6](#centos-6)
-            -   [CentOS 7](#centos-7)
-            -   [Ubuntu 12.04](#ubuntu-1204)
-            -   [Ubuntu 14.04](#ubuntu-1404)
-            -   [Ubuntu 16.04](#ubuntu-1604)
-        -   [Using Vagrant](#using-vagrant)
-            -   [Vagrant Boxes](#vagrant-boxes)
-                -   [Importing Vagrant Boxes](#importing-vagrant-boxes)
-                -   [Consuming Vagrant Boxes](#consuming-vagrant-boxes)
-        -   [VMware Fusion Export To vSphere](#vmware-fusion-export-to-vsphere)
-            -   [CentOS 6](#centos-6-1)
-            -   [CentOS 7](#centos-7-1)
-            -   [Ubuntu 12.04](#ubuntu-1204-1)
-            -   [Ubuntu 14.04](#ubuntu-1404-1)
-            -   [Ubuntu 16.04](#ubuntu-1604-1)
-        -   [VMware vSphere](#vmware-vsphere)
-            -   [CentOS 6](#centos-6-2)
-            -   [CentOS 7](#centos-7-2)
-            -   [Ubuntu 12.04](#ubuntu-1204-2)
-            -   [Ubuntu 14.04](#ubuntu-1404-2)
-            -   [Ubuntu 16.04](#ubuntu-1604-2)
-    -   [License](#license)
-    -   [Author Information](#author-information)
+- [Packer For vSphere and More](#packer-for-vsphere-and-more)
+  - [Requirements](#requirements)
+    - [Required Software](#required-software)
+    - [Updating/Creating Environment Variables and Etc. Using Ansible](#updatingcreating-environment-variables-and-etc-using-ansible)
+    - [Required ESXi Tweaks](#required-esxi-tweaks)
+  - [Usage](#usage)
+    - [VMware Fusion And VirtualBox](#vmware-fusion-and-virtualbox)
+      - [CentOS 6](#centos-6)
+      - [CentOS 7](#centos-7)
+      - [Ubuntu 12.04](#ubuntu-1204)
+      - [Ubuntu 14.04](#ubuntu-1404)
+      - [Ubuntu 16.04](#ubuntu-1604)
+    - [Using Vagrant](#using-vagrant)
+      - [Vagrant Boxes](#vagrant-boxes)
+        - [Importing Vagrant Boxes](#importing-vagrant-boxes)
+        - [Consuming Vagrant Boxes](#consuming-vagrant-boxes)
+    - [VMware Fusion Export To vSphere](#vmware-fusion-export-to-vsphere)
+      - [CentOS 6](#centos-6-1)
+      - [CentOS 7](#centos-7-1)
+      - [Ubuntu 12.04](#ubuntu-1204-1)
+      - [Ubuntu 14.04](#ubuntu-1404-1)
+      - [Ubuntu 16.04](#ubuntu-1604-1)
+    - [VMware vSphere](#vmware-vsphere)
+      - [CentOS 6](#centos-6-2)
+      - [CentOS 7](#centos-7-2)
+      - [Ubuntu 12.04](#ubuntu-1204-2)
+      - [Ubuntu 14.04](#ubuntu-1404-2)
+      - [Ubuntu 16.04](#ubuntu-1604-2)
+  - [License](#license)
+  - [Author Information](#author-information)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -56,33 +52,6 @@ remain identical. This ensures that environments are built the same.
 -   [Vagrant](https://www.vagrantup.com/)
 -   [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 -   [VMware Fusion](https://www.vmware.com/products/fusion.html)
-
-### Required Secret Variables
-
-As part of this you will need to create a `JSON` file with some of the secret
-private variables. This file should be excluded from version control.
-
-> NOTE: Only required if not using Ansible to update environment as below.
-
-`private_variables.json`:
-
-```json
-{
-  "esxi_remote_password": "VMw@re1",
-  "esxi_remote_username": "root",
-  "vcenter_password": "VMw@re1!",
-  "vcenter_username": "administrator@vsphere.local",
-  "vm_ssh_password": "packer",
-  "vm_ssh_username": "packer"
-}
-```
-
-### Required Variables
-
-The variables defined in [variables.json](./variables.json) need to be defined
-as required for your environment.
-
-> NOTE: Only required if not using Ansible to update environment as below.
 
 ### Updating/Creating Environment Variables and Etc. Using Ansible
 
@@ -128,6 +97,10 @@ ansible-playbook playbooks/generate_configs.yml
 ```
 
 ### Required ESXi Tweaks
+
+As part of the previous step of using Ansible to generate configurations and etc.
+you will find a PowerShell script `GuestIPHack.ps1` that is created which can
+be used to configure your vSphere hosts to allow Packer to build.
 
 ## Usage
 

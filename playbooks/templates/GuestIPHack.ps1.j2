@@ -10,9 +10,9 @@ Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -confirm:$false | Out
 Set-PowerCLIConfiguration -Scope User -ParticipateInCEIP $false -confirm:$false | Out-Null
 
 # Define vCenter info
-$vCenterServerHost = "10.0.102.60"
-$vCenterUsername = "administrator@vsphere.local"
-$vCenterPassword = "VMw@re1!"
+$vCenterServerHost = "{{ vcenter_host }}"
+$vCenterUsername = "{{ vcenter_username }}"
+$vCenterPassword = "{{ vcenter_password }}"
 
 ## Connect to vCenter
 Connect-VIServer $vCenterServerHost -User $vCenterUsername -Password $vCenterPassword | Out-Null

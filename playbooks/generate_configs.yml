@@ -22,3 +22,8 @@
       template:
         src: templates/private_variables.json.j2
         dest: ../private_variables.json
+
+    - name: Generating PowerCLI Script
+      template:
+        src: templates/GuestIPHack.ps1.j2
+        dest: ../GuestIPHack.ps1
