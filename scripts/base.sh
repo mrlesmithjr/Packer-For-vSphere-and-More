@@ -18,6 +18,10 @@ if [ -f /etc/debian_version ]; then
 
   #install packages
   sudo apt-get install -y python-minimal
+
+  # Check for /etc/rc.local and create if needed. This has been depricated in
+  # Debian 9 and later. So we need to resolve this in order to regenerate SSH host
+  # keys.
   if [ ! -f /etc/rc.local ]; then
     sudo bash -c "cat <<EOF >/etc/rc.local
 #!/bin/sh -e
