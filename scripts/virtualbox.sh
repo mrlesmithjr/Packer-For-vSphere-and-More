@@ -27,11 +27,11 @@ if [ -f /etc/redhat-release ]; then
   codename="$(facter operatingsystem)"
   if [[ $codename != "Fedora" ]]; then
     sudo yum -y install gcc kernel-devel kernel-headers dkms make bzip2 perl && \
-      sudo yum -y group install "Development Tools"
+      sudo yum -y groupinstall "Development Tools"
   fi
   if [[ $codename == "Fedora" ]]; then
     sudo dnf -y install gcc kernel-devel kernel-headers dkms make bzip2 perl && \
-      sudo dnf -y group install "Development Tools"
+      sudo dnf -y groupinstall "Development Tools"
   fi
   sudo mkdir -p /mnt/virtualbox
   sudo mount -o loop /home/packer/VBoxGuestAdditions.iso /mnt/virtualbox
