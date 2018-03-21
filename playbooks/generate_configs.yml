@@ -8,15 +8,29 @@
         path: ../http
         state: directory
 
+    - name: Ensuring ../http Distro Folders Exist
+      file:
+        path: "../http/{{ item }}"
+        state: directory
+      with_items:
+        - centos
+        - debian
+        - ubuntu
+
     - name: Generating Kickstart Configuration
       template:
         src: templates/ks.cfg.j2
         dest: ../http/ks.cfg
 
-    - name: Generating Preseed Configuration
+    - name: Generating Ubuntu Preseed Configuration
       template:
-        src: templates/preseed.cfg.j2
-        dest: ../http/preseed.cfg
+        src: templates/ubuntu_preseed.cfg.j2
+        dest: ../http/ubuntu/preseed.cfg
+
+    - name: Generating Debian Preseed Configuration
+      template:
+        src: templates/debian_preseed.cfg.j2
+        dest: ../http/debian/preseed.cfg
 
     - name: Generating Packer Variables
       template:

@@ -2,8 +2,7 @@
 *.box
 accounts.yml
 GuestIPHack.ps1
-http/ks.cfg
-http/preseed.cfg
+http/*
 output-*
 packer_cache/
 private_variables.json

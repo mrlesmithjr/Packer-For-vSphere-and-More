@@ -49,7 +49,7 @@
     "disk_size": "{{ user `vm_disk_size` }}",
     "disk_type_id": 0,
     "floppy_files": [
-      "http/preseed.cfg"
+      "http/ubuntu/preseed.cfg"
     ],
     "headless": true,
     "iso_checksum_type": "{{ user `iso_checksum_type` }}",

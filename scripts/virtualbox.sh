@@ -9,8 +9,17 @@ fi
 
 # Debian/Ubuntu
 if [ -f /etc/debian_version ]; then
-  codename="$(facter lsbdistcodename)"
-  sudo apt-get install -y virtualbox-guest-dkms
+  os="$(facter operatingsystem)"
+  if [[ $os == "Ubuntu" ]]; then
+    sudo apt-get install -y virtualbox-guest-dkms
+  elif [[ $os == "Debian" ]]; then
+    sudo apt-get install -y build-essential linux-headers-`uname -r`
+    sudo mkdir -p /mnt/virtualbox
+    sudo mount -o loop /home/packer/VBoxGuestAdditions.iso /mnt/virtualbox
+    sudo sh /mnt/virtualbox/VBoxLinuxAdditions.run
+    sudo umount /mnt/virtualbox
+    sudo rm -rf /home/packer/VBoxGuestAdditions.iso
+  fi
 fi
 
 # RHEL
