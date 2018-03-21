@@ -11,6 +11,7 @@
     - [VMware Fusion And VirtualBox](#vmware-fusion-and-virtualbox)
       - [CentOS 6](#centos-6)
       - [CentOS 7](#centos-7)
+      - [Debian 8](#debian-8)
       - [Ubuntu 12.04](#ubuntu-1204)
       - [Ubuntu 14.04](#ubuntu-1404)
       - [Ubuntu 16.04](#ubuntu-1604)
@@ -129,6 +130,12 @@ packer build -var-file=private_variables.json -var-file=variables.json -var-file
 
 ```bash
 packer build -var-file=private_variables.json -var-file=variables.json -var-file=centos7.json centos.json
+```
+
+#### Debian 8
+
+```bash
+packer build -var-file=private_variables.json -var-file=variables.json -var-file=debian8.json debian.json
 ```
 
 #### Ubuntu 12.04
