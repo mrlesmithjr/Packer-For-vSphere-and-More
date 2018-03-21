@@ -28,6 +28,7 @@
     - [VMware vSphere](#vmware-vsphere)
       - [CentOS 6](#centos-6-2)
       - [CentOS 7](#centos-7-2)
+      - [Debian 8](#debian-8-1)
       - [Ubuntu 12.04](#ubuntu-1204-2)
       - [Ubuntu 14.04](#ubuntu-1404-2)
       - [Ubuntu 16.04](#ubuntu-1604-2)
@@ -345,6 +346,12 @@ packer build -var-file=private_variables.json -var-file=variables.json -var-file
 
 ```bash
 packer build -var-file=private_variables.json -var-file=variables.json -var-file=centos7.json centos_esx.json
+```
+
+#### Debian 8
+
+```bash
+packer build -var-file=private_variables.json -var-file=variables.json -var-file=debian8.json debian_esx.json
 ```
 
 #### Ubuntu 12.04

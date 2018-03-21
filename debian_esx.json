@@ -1,0 +1,96 @@
+{
+  "variables": {
+    "boot_command_prefix": "",
+    "esxi_remote_host": "",
+    "esxi_remote_password": "",
+    "esxi_remote_username": "",
+    "iso_checksum": "",
+    "iso_checksum_type": "",
+    "iso_url": "",
+    "vcenter_datacenter": "",
+    "vcenter_datastore": "",
+    "vcenter_host": "",
+    "vcenter_insecure": "",
+    "vcenter_password": "",
+    "vcenter_username": "",
+    "vm_disk_adapter_type": "",
+    "vm_disk_size": "",
+    "vm_guest_os_type": "debian8-64",
+    "vm_memory": "",
+    "vm_name": "",
+    "vm_network": "",
+    "vm_ssh_password": "",
+    "vm_ssh_username": "",
+    "vm_vcpu": ""
+  },
+  "builders": [{
+    "boot_command": [
+      "{{ user `boot_command_prefix` }}",
+      "install <wait>",
+      "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/debian/preseed.cfg <wait>",
+      "debian-installer=en_US <wait>",
+      "auto <wait>",
+      "locale=en_US <wait>",
+      "kbd-chooser/method=us <wait>",
+      "netcfg/get_domain=vm <wait>",
+      "netcfg/get_hostname=packer <wait>",
+      "fb=false <wait>",
+      "debconf/frontend=noninteractive <wait>",
+      "console-setup/ask_detect=false <wait>",
+      "console-keymaps-at/keymap=us <wait>",
+      "keyboard-configuration/xkb-keymap=us <wait>",
+      "<enter><wait>"
+    ],
+    "disk_adapter_type": "{{ user ` vm_disk_adapter_type` }}",
+    "disk_size": "{{ user `vm_disk_size` }}",
+    "disk_type_id": "thin",
+    "guest_os_type": "{{ user `vm_guest_os_type` }}",
+    "http_directory": "http",
+    "iso_checksum_type": "{{ user `iso_checksum_type` }}",
+    "iso_checksum": "{{ user `iso_checksum` }}",
+    "iso_url": "{{ user `iso_url` }}",
+    "name": "{{ user `vm_name` }}",
+    "output_directory": "{{ user `vm_name` }}",
+    "remote_datastore": "{{ user `vcenter_datastore` }}",
+    "remote_host": "{{ user `esxi_remote_host` }}",
+    "remote_password": "{{ user `esxi_remote_password` }}",
+    "remote_type": "esx5",
+    "remote_username": "{{ user `esxi_remote_username` }}",
+    "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'packer'|sudo -S bash 'shutdown.sh'",
+    "ssh_password": "{{ user `vm_ssh_password` }}",
+    "ssh_username": "{{ user `vm_ssh_username` }}",
+    "ssh_wait_timeout": "60m",
+    "type": "vmware-iso",
+    "vm_name": "{{ user `vm_name` }}",
+    "vmx_data": {
+      "memsize": "{{ user `vm_memory` }}",
+      "numvcpus": "{{ user `vm_vcpu` }}",
+
+      "ethernet0.networkName": "{{ user `vm_network` }}",
+      "ethernet0.present": "TRUE",
+      "ethernet0.startConnected": "TRUE",
+      "ethernet0.virtualDev": "vmxnet3",
+      "ethernet0.addressType": "generated",
+      "ethernet0.wakeOnPcktRcv": "FALSE"
+    }
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "scripts": [
+      "scripts/base.sh",
+      "scripts/vmware.sh",
+      "scripts/cleanup.sh"
+    ]
+  }],
+  "post-processors": [
+    [{
+      "datacenter": "{{ user `vcenter_datacenter` }}",
+      "host": "{{ user `vcenter_host` }}",
+      "insecure": "{{ user `vcenter_insecure`}}",
+      "password": "{{ user `vcenter_password` }}",
+      "type": "vsphere-template",
+      "username": "{{ user `vcenter_username` }}"
+    }]
+  ]
+
+}
