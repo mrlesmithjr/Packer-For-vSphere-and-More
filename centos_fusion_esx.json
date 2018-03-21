@@ -23,15 +23,13 @@
   },
   "builders": [{
     "boot_command": [
-      "{{ user `boot_command_prefix` }}"
+      "<tab> {{ user `boot_command_prefix` }}=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos/ks.cfg <enter><wait>"
     ],
     "disk_adapter_type": "{{ user ` vm_disk_adapter_type` }}",
     "disk_size": "{{ user `vm_disk_size` }}",
     "disk_type_id": 0,
-    "floppy_files": [
-      "http/ks.cfg"
-    ],
     "headless": true,
+    "http_directory": "http",
     "iso_checksum_type": "{{ user `iso_checksum_type` }}",
     "iso_checksum": "{{ user `iso_checksum` }}",
     "iso_url": "{{ user `iso_url` }}",

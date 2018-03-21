@@ -43,17 +43,15 @@
       " netcfg/get_hostname=packer<wait>",
       " grub-installer/bootdev=/dev/sda<wait>",
       " noapic<wait>",
-      " preseed/file=/floppy/preseed.cfg<wait>",
+      " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ubuntu/preseed.cfg<wait>",
       " -- <wait>",
       "<enter><wait>"
     ],
     "disk_adapter_type": "{{ user ` vm_disk_adapter_type` }}",
     "disk_size": "{{ user `vm_disk_size` }}",
     "disk_type_id": "thin",
-    "floppy_files": [
-      "http/ubuntu/preseed.cfg"
-    ],
     "guest_os_type": "{{ user `vm_guest_os_type` }}",
+    "http_directory": "http",
     "iso_checksum_type": "{{ user `iso_checksum_type` }}",
     "iso_checksum": "{{ user `iso_checksum` }}",
     "iso_url": "{{ user `iso_url` }}",
