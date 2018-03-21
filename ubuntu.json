@@ -39,7 +39,7 @@
       ],
       "disk_size": "{{ user `vm_disk_size` }}",
       "floppy_files": [
-        "http/preseed.cfg"
+        "http/ubuntu/preseed.cfg"
       ],
       "guest_os_type": "Ubuntu_64",
       "hard_drive_interface": "{{ user ` vm_disk_adapter_type` }}",
@@ -87,7 +87,7 @@
       "disk_size": "{{ user `vm_disk_size` }}",
       "disk_type_id": 0,
       "floppy_files": [
-        "http/preseed.cfg"
+        "http/ubuntu/preseed.cfg"
       ],
       "guest_os_type": "ubuntu-64",
       "headless": true,

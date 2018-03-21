@@ -51,7 +51,7 @@
     "disk_size": "{{ user `vm_disk_size` }}",
     "disk_type_id": "thin",
     "floppy_files": [
-      "http/preseed.cfg"
+      "http/ubuntu/preseed.cfg"
     ],
     "guest_os_type": "{{ user `vm_guest_os_type` }}",
     "iso_checksum_type": "{{ user `iso_checksum_type` }}",
