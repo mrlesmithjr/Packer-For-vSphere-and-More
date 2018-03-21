@@ -51,6 +51,13 @@ d-i partman/confirm_nooverwrite boolean true
 d-i partman/mount_style select uuid
 
 ### Apt setup
+# do not scan for other CDs
+# see http://serverfault.com/a/622818
+# maybe related to 4a2145d3a86a2c5dcec4e2571197ea5a10313b59 in apt-setup
+d-i apt-setup/cdrom/set-first boolean false
+d-i apt-setup/cdrom/set-next boolean false
+d-i apt-setup/cdrom/set-failed boolean false
+
 d-i apt-setup/non-free boolean false
 d-i apt-setup/contrib boolean false
 d-i apt-setup/services-select multiselect security

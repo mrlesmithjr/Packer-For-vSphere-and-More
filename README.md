@@ -12,6 +12,7 @@
       - [CentOS 6](#centos-6)
       - [CentOS 7](#centos-7)
       - [Debian 8](#debian-8)
+      - [Debian 9](#debian-9)
       - [Ubuntu 12.04](#ubuntu-1204)
       - [Ubuntu 14.04](#ubuntu-1404)
       - [Ubuntu 16.04](#ubuntu-1604)
@@ -29,6 +30,7 @@
       - [CentOS 6](#centos-6-2)
       - [CentOS 7](#centos-7-2)
       - [Debian 8](#debian-8-1)
+      - [Debian 9](#debian-9-1)
       - [Ubuntu 12.04](#ubuntu-1204-2)
       - [Ubuntu 14.04](#ubuntu-1404-2)
       - [Ubuntu 16.04](#ubuntu-1604-2)
@@ -137,6 +139,12 @@ packer build -var-file=private_variables.json -var-file=variables.json -var-file
 
 ```bash
 packer build -var-file=private_variables.json -var-file=variables.json -var-file=debian8.json debian.json
+```
+
+#### Debian 9
+
+```bash
+packer build -var-file=private_variables.json -var-file=variables.json -var-file=debian9.json debian.json
 ```
 
 #### Ubuntu 12.04
@@ -352,6 +360,12 @@ packer build -var-file=private_variables.json -var-file=variables.json -var-file
 
 ```bash
 packer build -var-file=private_variables.json -var-file=variables.json -var-file=debian8.json debian_esx.json
+```
+
+#### Debian 9
+
+```bash
+packer build -var-file=private_variables.json -var-file=variables.json -var-file=debian9.json debian_esx.json
 ```
 
 #### Ubuntu 12.04
