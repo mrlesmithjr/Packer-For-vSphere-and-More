@@ -20,7 +20,7 @@
     - name: Generating Kickstart Configuration
       template:
         src: templates/ks.cfg.j2
-        dest: ../http/ks.cfg
+        dest: ../http/centos/ks.cfg
 
     - name: Generating Ubuntu Preseed Configuration
       template:
