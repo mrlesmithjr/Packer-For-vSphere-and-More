@@ -21,4 +21,5 @@ if [ -f /etc/redhat-release ]; then
   if [[ $codename == "Fedora" ]]; then
     sudo dnf -y install open-vm-tools
   fi
+  sudo /bin/systemctl restart vmtoolsd.service
 fi
