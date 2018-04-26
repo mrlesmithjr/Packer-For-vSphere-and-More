@@ -8,14 +8,18 @@
     - [Updating/Creating Environment Variables and Etc. Using Ansible](#updatingcreating-environment-variables-and-etc-using-ansible)
     - [Required ESXi Tweaks](#required-esxi-tweaks)
   - [Usage](#usage)
+    - [KVM](#kvm)
+      - [Ubuntu 12.04](#ubuntu-1204)
+      - [Ubuntu 14.04](#ubuntu-1404)
+      - [Ubuntu 16.04](#ubuntu-1604)
     - [VMware Fusion And VirtualBox](#vmware-fusion-and-virtualbox)
       - [CentOS 6](#centos-6)
       - [CentOS 7](#centos-7)
       - [Debian 8](#debian-8)
       - [Debian 9](#debian-9)
-      - [Ubuntu 12.04](#ubuntu-1204)
-      - [Ubuntu 14.04](#ubuntu-1404)
-      - [Ubuntu 16.04](#ubuntu-1604)
+      - [Ubuntu 12.04](#ubuntu-1204-1)
+      - [Ubuntu 14.04](#ubuntu-1404-1)
+      - [Ubuntu 16.04](#ubuntu-1604-1)
     - [Using Vagrant](#using-vagrant)
       - [Vagrant Boxes](#vagrant-boxes)
         - [Importing Vagrant Boxes](#importing-vagrant-boxes)
@@ -23,17 +27,17 @@
     - [VMware Fusion Export To vSphere](#vmware-fusion-export-to-vsphere)
       - [CentOS 6](#centos-6-1)
       - [CentOS 7](#centos-7-1)
-      - [Ubuntu 12.04](#ubuntu-1204-1)
-      - [Ubuntu 14.04](#ubuntu-1404-1)
-      - [Ubuntu 16.04](#ubuntu-1604-1)
+      - [Ubuntu 12.04](#ubuntu-1204-2)
+      - [Ubuntu 14.04](#ubuntu-1404-2)
+      - [Ubuntu 16.04](#ubuntu-1604-2)
     - [VMware vSphere](#vmware-vsphere)
       - [CentOS 6](#centos-6-2)
       - [CentOS 7](#centos-7-2)
       - [Debian 8](#debian-8-1)
       - [Debian 9](#debian-9-1)
-      - [Ubuntu 12.04](#ubuntu-1204-2)
-      - [Ubuntu 14.04](#ubuntu-1404-2)
-      - [Ubuntu 16.04](#ubuntu-1604-2)
+      - [Ubuntu 12.04](#ubuntu-1204-3)
+      - [Ubuntu 14.04](#ubuntu-1404-3)
+      - [Ubuntu 16.04](#ubuntu-1604-3)
   - [License](#license)
   - [Author Information](#author-information)
 
@@ -111,6 +115,29 @@ be used to configure your vSphere hosts to allow Packer to build.
 > NOTE: The below methods ensure that all builds are consistent regardless of the
 > platform you choose to deploy to. This ensures that the underlying VM image is
 > consistent across environments.
+
+### KVM
+
+This method will build VM templates for KVM usage. You will need to run these
+directly on the KVM host.
+
+#### Ubuntu 12.04
+
+```bash
+packer build -var-file=private_variables.json -var-file=variables.json -var-file=ubuntu1204.json ubuntu_kvm.json
+```
+
+#### Ubuntu 14.04
+
+```bash
+packer build -var-file=private_variables.json -var-file=variables.json -var-file=ubuntu1404.json ubuntu_kvm.json
+```
+
+#### Ubuntu 16.04
+
+```bash
+packer build -var-file=private_variables.json -var-file=variables.json -var-file=ubuntu1604.json ubuntu_kvm.json
+```
 
 ### VMware Fusion And VirtualBox
 
