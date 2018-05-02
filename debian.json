@@ -101,11 +101,15 @@
       "scripts/cleanup.sh"
     ]
   }],
-  "post-processors": [
-    [{
+  "post-processors": [{
       "compression_level": "{{ user `compression_level` }}",
       "output": "{{ user `vm_name` }}-{{.Provider}}-{{ timestamp }}.box",
       "type": "vagrant"
-    }]
+    },
+    {
+      "type": "manifest",
+      "output": "manifest.json",
+      "strip_path": true
+    }
   ]
 }
