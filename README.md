@@ -12,6 +12,7 @@
       - [Ubuntu 12.04](#ubuntu-1204)
       - [Ubuntu 14.04](#ubuntu-1404)
       - [Ubuntu 16.04](#ubuntu-1604)
+      - [Ubuntu 18.04](#ubuntu-1804)
     - [VMware Fusion And VirtualBox](#vmware-fusion-and-virtualbox)
       - [CentOS 6](#centos-6)
       - [CentOS 7](#centos-7)
@@ -20,6 +21,7 @@
       - [Ubuntu 12.04](#ubuntu-1204-1)
       - [Ubuntu 14.04](#ubuntu-1404-1)
       - [Ubuntu 16.04](#ubuntu-1604-1)
+      - [Ubuntu 18.04](#ubuntu-1804-1)
     - [Using Vagrant](#using-vagrant)
       - [Vagrant Boxes](#vagrant-boxes)
         - [Importing Vagrant Boxes](#importing-vagrant-boxes)
@@ -30,6 +32,7 @@
       - [Ubuntu 12.04](#ubuntu-1204-2)
       - [Ubuntu 14.04](#ubuntu-1404-2)
       - [Ubuntu 16.04](#ubuntu-1604-2)
+      - [Ubuntu 18.04](#ubuntu-1804-2)
     - [VMware vSphere](#vmware-vsphere)
       - [CentOS 6](#centos-6-2)
       - [CentOS 7](#centos-7-2)
@@ -38,6 +41,7 @@
       - [Ubuntu 12.04](#ubuntu-1204-3)
       - [Ubuntu 14.04](#ubuntu-1404-3)
       - [Ubuntu 16.04](#ubuntu-1604-3)
+      - [Ubuntu 18.04](#ubuntu-1804-3)
   - [License](#license)
   - [Author Information](#author-information)
 
@@ -139,6 +143,12 @@ packer build -var-file=private_variables.json -var-file=variables.json -var-file
 packer build -var-file=private_variables.json -var-file=variables.json -var-file=ubuntu1604.json ubuntu_kvm.json
 ```
 
+#### Ubuntu 18.04
+
+```bash
+packer build -var-file=private_variables.json -var-file=variables.json -var-file=ubuntu1804.json ubuntu_kvm.json
+```
+
 ### VMware Fusion And VirtualBox
 
 This method will build a local only usable VM using VMware Fusion and VirtualBox.
@@ -190,6 +200,12 @@ packer build -var-file=private_variables.json -var-file=variables.json -var-file
 
 ```bash
 packer build -var-file=private_variables.json -var-file=variables.json -var-file=ubuntu1604.json ubuntu.json
+```
+
+#### Ubuntu 18.04
+
+```bash
+packer build -var-file=private_variables.json -var-file=variables.json -var-file=ubuntu1804.json ubuntu.json
 ```
 
 ### Using Vagrant
@@ -366,6 +382,12 @@ packer build -var-file=private_variables.json -var-file=variables.json -var-file
 packer build -var-file=private_variables.json -var-file=variables.json -var-file=ubuntu1604.json ubuntu_fusion_esx.json
 ```
 
+#### Ubuntu 18.04
+
+```bash
+packer build -var-file=private_variables.json -var-file=variables.json -var-file=ubuntu1804.json ubuntu_fusion_esx.json
+```
+
 ### VMware vSphere
 
 This method will build VM templates using Packer directly on a vSphere host and
@@ -411,6 +433,12 @@ packer build -var-file=private_variables.json -var-file=variables.json -var-file
 
 ```bash
 packer build -var-file=private_variables.json -var-file=variables.json -var-file=ubuntu1604.json ubuntu_esx.json
+```
+
+#### Ubuntu 18.04
+
+```bash
+packer build -var-file=private_variables.json -var-file=variables.json -var-file=ubuntu1804.json ubuntu_esx.json
 ```
 
 ## License
