@@ -53,13 +53,13 @@
     "iso_checksum_type": "{{ user `iso_checksum_type` }}",
     "iso_checksum": "{{ user `iso_checksum` }}",
     "iso_url": "{{ user `iso_url` }}",
-    "name": "{{ user `vm_name` }}",
+    "name": "{{ user `vm_name` }}-{{ timestamp }}",
     "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'packer'|sudo -S bash 'shutdown.sh'",
     "ssh_password": "{{ user `vm_ssh_password` }}",
     "ssh_username": "{{ user `vm_ssh_username` }}",
     "ssh_wait_timeout": "60m",
     "type": "vmware-iso",
-    "vm_name": "{{ user `vm_name` }}",
+    "vm_name": "{{ user `vm_name` }}-{{ timestamp }}",
     "vmx_data": {
       "memsize": "{{ user `vm_memory` }}",
       "numvcpus": "{{ user `vm_vcpu` }}"
@@ -84,7 +84,7 @@
         "password": "{{ user `vcenter_password` }}",
         "type": "vsphere",
         "username": "{{ user `vcenter_username` }}",
-        "vm_name": "{{ user `vm_name` }}",
+        "vm_name": "{{ user `vm_name` }}-{{ timestamp }}",
         "vm_network": "{{ user `vm_network` }}"
       },
       {

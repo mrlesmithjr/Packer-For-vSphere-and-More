@@ -1,49 +1,51 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Packer For vSphere and More](#packer-for-vsphere-and-more)
-  - [Requirements](#requirements)
-    - [Required Software](#required-software)
-    - [Updating/Creating Environment Variables and Etc. Using Ansible](#updatingcreating-environment-variables-and-etc-using-ansible)
-    - [Required ESXi Tweaks](#required-esxi-tweaks)
-  - [Usage](#usage)
-    - [KVM](#kvm)
-      - [Ubuntu 12.04](#ubuntu-1204)
-      - [Ubuntu 14.04](#ubuntu-1404)
-      - [Ubuntu 16.04](#ubuntu-1604)
-      - [Ubuntu 18.04](#ubuntu-1804)
-    - [VMware Fusion And VirtualBox](#vmware-fusion-and-virtualbox)
-      - [CentOS 6](#centos-6)
-      - [CentOS 7](#centos-7)
-      - [Debian 8](#debian-8)
-      - [Debian 9](#debian-9)
-      - [Ubuntu 12.04](#ubuntu-1204-1)
-      - [Ubuntu 14.04](#ubuntu-1404-1)
-      - [Ubuntu 16.04](#ubuntu-1604-1)
-      - [Ubuntu 18.04](#ubuntu-1804-1)
-    - [Using Vagrant](#using-vagrant)
-      - [Vagrant Boxes](#vagrant-boxes)
-        - [Importing Vagrant Boxes](#importing-vagrant-boxes)
-        - [Consuming Vagrant Boxes](#consuming-vagrant-boxes)
-    - [VMware Fusion Export To vSphere](#vmware-fusion-export-to-vsphere)
-      - [CentOS 6](#centos-6-1)
-      - [CentOS 7](#centos-7-1)
-      - [Ubuntu 12.04](#ubuntu-1204-2)
-      - [Ubuntu 14.04](#ubuntu-1404-2)
-      - [Ubuntu 16.04](#ubuntu-1604-2)
-      - [Ubuntu 18.04](#ubuntu-1804-2)
-    - [VMware vSphere](#vmware-vsphere)
-      - [CentOS 6](#centos-6-2)
-      - [CentOS 7](#centos-7-2)
-      - [Debian 8](#debian-8-1)
-      - [Debian 9](#debian-9-1)
-      - [Ubuntu 12.04](#ubuntu-1204-3)
-      - [Ubuntu 14.04](#ubuntu-1404-3)
-      - [Ubuntu 16.04](#ubuntu-1604-3)
-      - [Ubuntu 18.04](#ubuntu-1804-3)
-  - [License](#license)
-  - [Author Information](#author-information)
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+-   [Packer For vSphere and More](#packer-for-vsphere-and-more)
+    -   [Requirements](#requirements)
+        -   [Required Software](#required-software)
+        -   [Updating/Creating Environment Variables and Etc. Using Ansible](#updatingcreating-environment-variables-and-etc-using-ansible)
+        -   [Required ESXi Tweaks](#required-esxi-tweaks)
+    -   [Usage](#usage)
+        -   [KVM](#kvm)
+            -   [Ubuntu 12.04](#ubuntu-1204)
+            -   [Ubuntu 14.04](#ubuntu-1404)
+            -   [Ubuntu 16.04](#ubuntu-1604)
+            -   [Ubuntu 18.04](#ubuntu-1804)
+        -   [VMware Fusion And VirtualBox](#vmware-fusion-and-virtualbox)
+            -   [CentOS 6](#centos-6)
+            -   [CentOS 7](#centos-7)
+            -   [Debian 8](#debian-8)
+            -   [Debian 9](#debian-9)
+            -   [Ubuntu 12.04](#ubuntu-1204-1)
+            -   [Ubuntu 14.04](#ubuntu-1404-1)
+            -   [Ubuntu 16.04](#ubuntu-1604-1)
+            -   [Ubuntu 18.04](#ubuntu-1804-1)
+        -   [Using Vagrant](#using-vagrant)
+            -   [Vagrant Boxes](#vagrant-boxes)
+                -   [Importing Vagrant Boxes](#importing-vagrant-boxes)
+                -   [Consuming Vagrant Boxes](#consuming-vagrant-boxes)
+        -   [VMware Fusion Export To vSphere](#vmware-fusion-export-to-vsphere)
+            -   [CentOS 6](#centos-6-1)
+            -   [CentOS 7](#centos-7-1)
+            -   [Ubuntu 12.04](#ubuntu-1204-2)
+            -   [Ubuntu 14.04](#ubuntu-1404-2)
+            -   [Ubuntu 16.04](#ubuntu-1604-2)
+            -   [Ubuntu 18.04](#ubuntu-1804-2)
+        -   [VMware vSphere](#vmware-vsphere)
+            -   [CentOS 6](#centos-6-2)
+            -   [CentOS 7](#centos-7-2)
+            -   [Debian 8](#debian-8-1)
+            -   [Debian 9](#debian-9-1)
+            -   [Ubuntu 12.04](#ubuntu-1204-3)
+            -   [Ubuntu 14.04](#ubuntu-1404-3)
+            -   [Ubuntu 16.04](#ubuntu-1604-3)
+            -   [Ubuntu 18.04](#ubuntu-1804-3)
+    -   [License](#license)
+    -   [Author Information](#author-information)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -119,6 +121,19 @@ be used to configure your vSphere hosts to allow Packer to build.
 > NOTE: The below methods ensure that all builds are consistent regardless of the
 > platform you choose to deploy to. This ensures that the underlying VM image is
 > consistent across environments.
+
+### Image Versions Based On Timestamps
+
+We have implemented the `{{ timestamp }}` function within Packer to append the
+timestamp to each image being built. This will allow for images to be continually
+built based on timestamp in order to properly select an image that you would like
+to consume.
+
+Example image built:
+
+```bash
+Build 'ubuntu1604-packer-template-1525281143' finished.
+```
 
 ### KVM
 
