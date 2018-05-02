@@ -88,15 +88,18 @@
       "scripts/cleanup.sh"
     ]
   }],
-  "post-processors": [
-    [{
+  "post-processors": [{
       "datacenter": "{{ user `vcenter_datacenter` }}",
       "host": "{{ user `vcenter_host` }}",
       "insecure": "{{ user `vcenter_insecure`}}",
       "password": "{{ user `vcenter_password` }}",
       "type": "vsphere-template",
       "username": "{{ user `vcenter_username` }}"
-    }]
+    },
+    {
+      "type": "manifest",
+      "output": "manifest.json",
+      "strip_path": true
+    }
   ]
-
 }
