@@ -1,0 +1,28 @@
+# Accept EULA
+vmaccepteula
+
+# Set root password
+rootpw {{ esxi_password }}
+
+# Install on local disk overwriting any existing VMFS datastore
+install --firstdisk --overwritevmfs
+
+# Network configuration
+network --bootproto=dhcp --device=vmnic0
+
+# Reboot after installation completed
+reboot
+
+%firstboot --interpreter=busybox
+
+# Enable SSH and the ESXi Shell
+vim-cmd hostsvc/enable_ssh
+vim-cmd hostsvc/start_ssh
+vim-cmd hostsvc/enable_esx_shell
+vim-cmd hostsvc/start_esx_shell
+
+# Suppress Shell Warning in Host
+esxcli system settings advanced set -o /UserVars/SuppressShellWarning -i 1
+esxcli system settings advanced set -o /UserVars/ESXiShellTimeOut -i 1
+
+sed -i '/\/system\/uuid/d' /etc/vmware/esx.conf

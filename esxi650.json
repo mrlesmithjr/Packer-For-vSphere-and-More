@@ -1,0 +1,8 @@
+{
+  "iso_checksum": "5a38ae10162e0a1395b12ea31cba6342796f6383",
+  "iso_checksum_type": "sha1",
+  "iso_url": "isos/VMware-VMvisor-Installer-6.5.0.update01-5969303.x86_64.iso",
+  "vm_guest_os_type": "vmkernel65",
+  "vm_name": "esxi650-packer-template",
+  "vsphere_version": "6.5.0"
+}

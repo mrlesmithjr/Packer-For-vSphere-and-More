@@ -1,9 +1,18 @@
 .DS_Store
 *.box
+*.iso
 accounts.yml
 GuestIPHack.ps1
 http/*
+isos/*
 manifest.json
 output-*
 packer_cache/
 private_variables.json
+
+# Exclude vSphere Build artifacts
+*.nvram
+*.vmdk
+*.vmsd
+*.vmx
+*.vmxf

@@ -116,6 +116,20 @@ As part of the previous step of using Ansible to generate configurations and etc
 you will find a PowerShell script `GuestIPHack.ps1` that is created which can
 be used to configure your vSphere hosts to allow Packer to build.
 
+### Building ESXi Nested Images/Templates
+
+Functionality has been included to build ESXi images/templates using Packer. The
+requirements for this are slightly different as we need to include our own ESXi
+ISO images in the folder `isos`. We need to include the `sha1` hash of the ISO
+as well which we can obtain either from the download source or capturing the hash
+using `sha1sum`.
+
+```bash
+sha1sum VMware-VMvisor-Installer-6.5.0.update01-5969303.x86_64.iso
+...
+5a38ae10162e0a1395b12ea31cba6342796f6383  VMware-VMvisor-Installer-6.5.0.update01-5969303.x86_64.iso
+```
+
 ## Usage
 
 > NOTE: The below methods ensure that all builds are consistent regardless of the
@@ -197,6 +211,12 @@ packer build -var-file=private_variables.json -var-file=variables.json -var-file
 
 ```bash
 packer build -var-file=private_variables.json -var-file=variables.json -var-file=debian9.json debian.json
+```
+
+#### ESXi 6.5.0
+
+```bash
+packer build -var-file=private_variables.json -var-file=variables.json -var-file=esxi650.json nested_esxi.json
 ```
 
 #### Ubuntu 12.04

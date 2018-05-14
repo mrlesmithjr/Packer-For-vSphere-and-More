@@ -1,0 +1,96 @@
+{
+  "variables": {
+    "compression_level": "6",
+    "default_esxi_password": "",
+    "iso_checksum": "",
+    "iso_checksum_type": "",
+    "iso_url": "",
+    "vm_disk_adapter_type": "",
+    "vm_disk_size": "",
+    "vm_guest_os_type": "",
+    "vm_name": ""
+  },
+  "builders": [{
+      "boot_command": [
+        "<enter><wait>O<wait> ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/esxi/ks.cfg<enter>"
+      ],
+      "boot_wait": "5s",
+      "disk_size": "{{ user `vm_disk_size` }}",
+      "guest_additions_mode": "disable",
+      "guest_os_type": "Linux_64",
+      "hard_drive_interface": "{{ user ` vm_disk_adapter_type` }}",
+      "headless": false,
+      "http_directory": "http",
+      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
+      "iso_checksum": "{{ user `iso_checksum` }}",
+      "iso_url": "{{ user `iso_url` }}",
+      "output_directory": "output-{{ user `vm_name` }}-{{ build_type }}-{{ timestamp }}",
+      "shutdown_command": "esxcli system maintenanceMode set -e true -t 0 ; esxcli system shutdown poweroff -d 10 -r 'Packer Shutdown' ; esxcli system maintenanceMode set -e false -t 0",
+      "ssh_password": "{{ user `default_esxi_password` }}",
+      "ssh_username": "root",
+      "ssh_wait_timeout": "60m",
+      "type": "virtualbox-iso",
+      "vboxmanage": [
+        ["modifyvm", "{{.Name}}", "--memory", 4096],
+        ["modifyvm", "{{.Name}}", "--cpus", 2],
+        ["modifyvm", "{{.Name}}", "--hwvirtex", "on"],
+        ["modifyvm", "{{.Name}}", "--pae", "on"]
+      ],
+      "vm_name": "{{ user `vm_name` }}-{{ timestamp }}"
+    },
+    {
+      "boot_command": [
+        "<enter><wait>O<wait> ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/esxi/ks.cfg<enter>"
+      ],
+      "boot_wait": "5s",
+      "disk_adapter_type": "{{ user `vm_disk_adapter_type` }}",
+      "disk_size": "{{ user `vm_disk_size` }}",
+      "disk_type_id": 0,
+      "guest_os_type": "{{ user `vm_guest_os_type` }}",
+      "headless": false,
+      "http_directory": "http",
+      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
+      "iso_checksum": "{{ user `iso_checksum` }}",
+      "iso_url": "{{ user `iso_url` }}",
+      "output_directory": "{{ user `vm_name` }}-{{ timestamp }}",
+      "shutdown_command": "esxcli system maintenanceMode set -e true -t 0 ; esxcli system shutdown poweroff -d 10 -r 'Packer Shutdown' ; esxcli system maintenanceMode set -e false -t 0",
+      "ssh_password": "{{ user `default_esxi_password` }}",
+      "ssh_username": "root",
+      "ssh_wait_timeout": "60m",
+      "type": "vmware-iso",
+      "vm_name": "{{ user `vm_name` }}-{{ timestamp }}",
+      "vmx_data": {
+        "ethernet0.connectionType": "nat",
+        "memsize": 4096,
+        "numvcpus": 2,
+        "vhv.enable": "TRUE",
+        "virtualHW.version": 11
+      }
+    }
+  ],
+  "provisioners": [{
+      "type": "shell",
+      "inline": [
+        "esxcli software vib install -v https://download3.vmware.com/software/vmw-tools/esxi-mac-learning-dvfilter/esx-dvfilter-maclearn-{{ user `vsphere_version` }}.vib -f",
+        "esxcli system settings advanced set -o /Net/FollowHardwareMac -i 1",
+        "/sbin/auto-backup.sh"
+      ]
+    },
+    {
+      "type": "file",
+      "source": "scripts/vagrant.pub",
+      "destination": "/etc/ssh/keys-root/authorized_keys"
+    }
+  ],
+  "post-processors": [{
+      "compression_level": "{{ user `compression_level` }}",
+      "output": "{{ user `vm_name` }}-{{.Provider}}-{{ timestamp }}.box",
+      "type": "vagrant"
+    },
+    {
+      "type": "manifest",
+      "output": "manifest.json",
+      "strip_path": true
+    }
+  ]
+}

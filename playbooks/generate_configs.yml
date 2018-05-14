@@ -15,7 +15,13 @@
       with_items:
         - centos
         - debian
+        - esxi
         - ubuntu
+
+    - name: Generating ESXi Kickstart Configuration
+      template:
+        src: templates/esxi_ks.cfg.j2
+        dest: ../http/esxi/ks.cfg
 
     - name: Generating Kickstart Configuration
       template:
