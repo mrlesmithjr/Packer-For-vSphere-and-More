@@ -21,39 +21,40 @@
     "vm_ssh_username": "",
     "vm_vcpu": ""
   },
-  "builders": [{
-    "boot_command": [
-      "<tab> {{ user `boot_command_prefix` }}=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos/ks.cfg <enter><wait>"
-    ],
-    "disk_adapter_type": "{{ user ` vm_disk_adapter_type` }}",
-    "disk_size": "{{ user `vm_disk_size` }}",
-    "disk_type_id": 0,
-    "headless": true,
-    "http_directory": "http",
-    "iso_checksum_type": "{{ user `iso_checksum_type` }}",
-    "iso_checksum": "{{ user `iso_checksum` }}",
-    "iso_url": "{{ user `iso_url` }}",
-    "name": "{{ user `vm_name` }}-{{ timestamp }}",
-    "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'packer'|sudo -S bash 'shutdown.sh'",
-    "ssh_password": "{{ user `vm_ssh_password` }}",
-    "ssh_username": "{{ user `vm_ssh_username` }}",
-    "ssh_wait_timeout": "60m",
-    "type": "vmware-iso",
-    "vm_name": "{{ user `vm_name` }}-{{ timestamp }}",
-    "vmx_data": {
-      "memsize": "{{ user `vm_memory` }}",
-      "numvcpus": "{{ user `vm_vcpu` }}"
+  "builders": [
+    {
+      "boot_command": [
+        "<tab> {{ user `boot_command_prefix` }}=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos/ks.cfg <enter><wait>"
+      ],
+      "disk_adapter_type": "{{ user ` vm_disk_adapter_type` }}",
+      "disk_size": "{{ user `vm_disk_size` }}",
+      "disk_type_id": 0,
+      "headless": true,
+      "http_directory": "http",
+      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
+      "iso_checksum": "{{ user `iso_checksum` }}",
+      "iso_url": "{{ user `iso_url` }}",
+      "name": "{{ user `vm_name` }}-{{ timestamp }}",
+      "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'packer'|sudo -S bash 'shutdown.sh'",
+      "ssh_password": "{{ user `vm_ssh_password` }}",
+      "ssh_username": "{{ user `vm_ssh_username` }}",
+      "ssh_wait_timeout": "60m",
+      "type": "vmware-iso",
+      "vm_name": "{{ user `vm_name` }}-{{ timestamp }}",
+      "vmx_data": {
+        "memsize": "{{ user `vm_memory` }}",
+        "numvcpus": "{{ user `vm_vcpu` }}"
+      }
     }
-  }],
-  "provisioners": [{
-    "type": "shell",
-    "scripts": [
-      "scripts/base.sh",
-      "scripts/vmware.sh",
-      "scripts/cleanup.sh"
-    ]
-  }],
-  "post-processors": [{
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "scripts": ["scripts/base.sh", "scripts/vmware.sh", "scripts/cleanup.sh"]
+    }
+  ],
+  "post-processors": [
+    {
       "cluster": "{{ user `vcenter_cluster` }}",
       "datacenter": "{{ user `vcenter_datacenter` }}",
       "datastore": "{{ user `vcenter_datastore` }}",

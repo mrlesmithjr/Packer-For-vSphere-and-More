@@ -13,7 +13,8 @@
     "vm_ssh_username": "",
     "vm_vcpu": ""
   },
-  "builders": [{
+  "builders": [
+    {
       "boot_command": [
         "{{ user `boot_command_prefix` }}",
         "/install/vmlinuz <wait>",
@@ -103,17 +104,20 @@
       }
     }
   ],
-  "provisioners": [{
-    "type": "shell",
-    "scripts": [
-      "scripts/base.sh",
-      "scripts/vagrant.sh",
-      "scripts/virtualbox.sh",
-      "scripts/vmware.sh",
-      "scripts/cleanup.sh"
-    ]
-  }],
-  "post-processors": [{
+  "provisioners": [
+    {
+      "type": "shell",
+      "scripts": [
+        "scripts/base.sh",
+        "scripts/vagrant.sh",
+        "scripts/virtualbox.sh",
+        "scripts/vmware.sh",
+        "scripts/cleanup.sh"
+      ]
+    }
+  ],
+  "post-processors": [
+    {
       "compression_level": "{{ user `compression_level` }}",
       "output": "{{ user `vm_name` }}-{{.Provider}}-{{ timestamp }}.box",
       "type": "vagrant"
