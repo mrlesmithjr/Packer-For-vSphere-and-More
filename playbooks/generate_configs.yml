@@ -1,4 +1,3 @@
----
 - hosts: localhost
   gather_facts: false
   connection: local
@@ -16,6 +15,7 @@
         - centos
         - debian
         - ubuntu
+        - windows/2016
 
     - name: Generating Kickstart Configuration
       template:
@@ -31,6 +31,11 @@
       template:
         src: templates/debian_preseed.cfg.j2
         dest: ../http/debian/preseed.cfg
+
+    - name: Generating Windows 2016 Autounattend Configuration
+      template:
+        src: templates/Autounattend_2016.xml.j2
+        dest: ../http/windows/2016/Autounattend.xml
 
     - name: Generating Packer Variables
       template:

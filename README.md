@@ -4,48 +4,48 @@
 
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
--   [Packer For vSphere and More](#packer-for-vsphere-and-more)
-    -   [Requirements](#requirements)
-        -   [Required Software](#required-software)
-        -   [Updating/Creating Environment Variables and Etc. Using Ansible](#updatingcreating-environment-variables-and-etc-using-ansible)
-        -   [Required ESXi Tweaks](#required-esxi-tweaks)
-    -   [Usage](#usage)
-        -   [KVM](#kvm)
-            -   [Ubuntu 12.04](#ubuntu-1204)
-            -   [Ubuntu 14.04](#ubuntu-1404)
-            -   [Ubuntu 16.04](#ubuntu-1604)
-            -   [Ubuntu 18.04](#ubuntu-1804)
-        -   [VMware Fusion And VirtualBox](#vmware-fusion-and-virtualbox)
-            -   [CentOS 6](#centos-6)
-            -   [CentOS 7](#centos-7)
-            -   [Debian 8](#debian-8)
-            -   [Debian 9](#debian-9)
-            -   [Ubuntu 12.04](#ubuntu-1204-1)
-            -   [Ubuntu 14.04](#ubuntu-1404-1)
-            -   [Ubuntu 16.04](#ubuntu-1604-1)
-            -   [Ubuntu 18.04](#ubuntu-1804-1)
-        -   [Using Vagrant](#using-vagrant)
-            -   [Vagrant Boxes](#vagrant-boxes)
-                -   [Importing Vagrant Boxes](#importing-vagrant-boxes)
-                -   [Consuming Vagrant Boxes](#consuming-vagrant-boxes)
-        -   [VMware Fusion Export To vSphere](#vmware-fusion-export-to-vsphere)
-            -   [CentOS 6](#centos-6-1)
-            -   [CentOS 7](#centos-7-1)
-            -   [Ubuntu 12.04](#ubuntu-1204-2)
-            -   [Ubuntu 14.04](#ubuntu-1404-2)
-            -   [Ubuntu 16.04](#ubuntu-1604-2)
-            -   [Ubuntu 18.04](#ubuntu-1804-2)
-        -   [VMware vSphere](#vmware-vsphere)
-            -   [CentOS 6](#centos-6-2)
-            -   [CentOS 7](#centos-7-2)
-            -   [Debian 8](#debian-8-1)
-            -   [Debian 9](#debian-9-1)
-            -   [Ubuntu 12.04](#ubuntu-1204-3)
-            -   [Ubuntu 14.04](#ubuntu-1404-3)
-            -   [Ubuntu 16.04](#ubuntu-1604-3)
-            -   [Ubuntu 18.04](#ubuntu-1804-3)
-    -   [License](#license)
-    -   [Author Information](#author-information)
+- [Packer For vSphere and More](#packer-for-vsphere-and-more)
+  - [Requirements](#requirements)
+    - [Required Software](#required-software)
+    - [Updating/Creating Environment Variables and Etc. Using Ansible](#updatingcreating-environment-variables-and-etc-using-ansible)
+    - [Required ESXi Tweaks](#required-esxi-tweaks)
+  - [Usage](#usage)
+    - [KVM](#kvm)
+      - [Ubuntu 12.04](#ubuntu-1204)
+      - [Ubuntu 14.04](#ubuntu-1404)
+      - [Ubuntu 16.04](#ubuntu-1604)
+      - [Ubuntu 18.04](#ubuntu-1804)
+    - [VMware Fusion And VirtualBox](#vmware-fusion-and-virtualbox)
+      - [CentOS 6](#centos-6)
+      - [CentOS 7](#centos-7)
+      - [Debian 8](#debian-8)
+      - [Debian 9](#debian-9)
+      - [Ubuntu 12.04](#ubuntu-1204-1)
+      - [Ubuntu 14.04](#ubuntu-1404-1)
+      - [Ubuntu 16.04](#ubuntu-1604-1)
+      - [Ubuntu 18.04](#ubuntu-1804-1)
+    - [Using Vagrant](#using-vagrant)
+      - [Vagrant Boxes](#vagrant-boxes)
+        - [Importing Vagrant Boxes](#importing-vagrant-boxes)
+        - [Consuming Vagrant Boxes](#consuming-vagrant-boxes)
+    - [VMware Fusion Export To vSphere](#vmware-fusion-export-to-vsphere)
+      - [CentOS 6](#centos-6-1)
+      - [CentOS 7](#centos-7-1)
+      - [Ubuntu 12.04](#ubuntu-1204-2)
+      - [Ubuntu 14.04](#ubuntu-1404-2)
+      - [Ubuntu 16.04](#ubuntu-1604-2)
+      - [Ubuntu 18.04](#ubuntu-1804-2)
+    - [VMware vSphere](#vmware-vsphere)
+      - [CentOS 6](#centos-6-2)
+      - [CentOS 7](#centos-7-2)
+      - [Debian 8](#debian-8-1)
+      - [Debian 9](#debian-9-1)
+      - [Ubuntu 12.04](#ubuntu-1204-3)
+      - [Ubuntu 14.04](#ubuntu-1404-3)
+      - [Ubuntu 16.04](#ubuntu-1604-3)
+      - [Ubuntu 18.04](#ubuntu-1804-3)
+  - [License](#license)
+  - [Author Information](#author-information)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -59,13 +59,13 @@ remain identical. This ensures that environments are built the same.
 
 ### Required Software
 
--   [Ansible](https://www.ansible.com)
--   [OVF Tool](https://www.vmware.com/support/developer/ovf/)
--   [Packer](https://www.packer.io)
--   [PowerShell](https://github.com/PowerShell/PowerShell)
--   [Vagrant](https://www.vagrantup.com/)
--   [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
--   [VMware Fusion](https://www.vmware.com/products/fusion.html)
+- [Ansible](https://www.ansible.com)
+- [OVF Tool](https://www.vmware.com/support/developer/ovf/)
+- [Packer](https://www.packer.io)
+- [PowerShell](https://github.com/PowerShell/PowerShell)
+- [Vagrant](https://www.vagrantup.com/)
+- [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+- [VMware Fusion](https://www.vmware.com/products/fusion.html)
 
 ### Updating/Creating Environment Variables and Etc. Using Ansible
 
@@ -74,17 +74,16 @@ Ansible to update/create our variables, kickstart, and preseed configurations.
 You will just need to update the variables in the following files to meet your
 requirements.
 
--   [playbooks/group_vars/all/environment.yml](playbooks/group_vars/all/environment.yml)
+- [playbooks/group_vars/all/environment.yml](playbooks/group_vars/all/environment.yml)
 
 You will also need to create `playbooks/group_vars/all/accounts.yml` with the
 following (This file is excluded from Git):
 
 ```yaml
----
-# Define default Linux user password to create and use for SSH
+# Define default Linux/Windows user password to create and use for SSH/WinRM
 default_password: packer
 
-# Define default Linux user to create and use for SSH
+# Define default Linux/Windows user to create and use for SSH/WinRM
 default_username: packer
 
 # Define ESXi login password
@@ -221,6 +220,12 @@ packer build -var-file=private_variables.json -var-file=variables.json -var-file
 
 ```bash
 packer build -var-file=private_variables.json -var-file=variables.json -var-file=ubuntu1804.json ubuntu.json
+```
+
+#### Windows 2016
+
+```bash
+packer build -var-file=private_variables.json -var-file=variables.json -var-file=windows_2016.json windows.json
 ```
 
 ### Using Vagrant
@@ -464,6 +469,6 @@ MIT
 
 Larry Smith Jr.
 
--   [EverythingShouldBeVirtual](http://everythingshouldbevirtual.com)
--   [@mrlesmithjr](https://www.twitter.com/mrlesmithjr)
--   <mailto:mrlesmithjr@gmail.com>
+- [EverythingShouldBeVirtual](http://everythingshouldbevirtual.com)
+- [@mrlesmithjr](https://www.twitter.com/mrlesmithjr)
+- <mailto:mrlesmithjr@gmail.com>
