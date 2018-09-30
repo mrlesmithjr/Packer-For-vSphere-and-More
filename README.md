@@ -1,8 +1,10 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+# Packer For vSphere and More
 
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+This repo is for creating a consistent and repeatable VM templates. No matter
+whether creating locally or remotely to vSphere, the base image development will
+remain identical. This ensures that environments are built the same.
 
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<!-- TOC -->
 
 - [Packer For vSphere and More](#packer-for-vsphere-and-more)
   - [Requirements](#requirements)
@@ -10,6 +12,7 @@
     - [Updating/Creating Environment Variables and Etc. Using Ansible](#updatingcreating-environment-variables-and-etc-using-ansible)
     - [Required ESXi Tweaks](#required-esxi-tweaks)
   - [Usage](#usage)
+    - [Image Versions Based On Timestamps](#image-versions-based-on-timestamps)
     - [KVM](#kvm)
       - [Ubuntu 12.04](#ubuntu-1204)
       - [Ubuntu 14.04](#ubuntu-1404)
@@ -24,6 +27,7 @@
       - [Ubuntu 14.04](#ubuntu-1404-1)
       - [Ubuntu 16.04](#ubuntu-1604-1)
       - [Ubuntu 18.04](#ubuntu-1804-1)
+      - [Windows 2016](#windows-2016)
     - [Using Vagrant](#using-vagrant)
       - [Vagrant Boxes](#vagrant-boxes)
         - [Importing Vagrant Boxes](#importing-vagrant-boxes)
@@ -47,13 +51,7 @@
   - [License](#license)
   - [Author Information](#author-information)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-# Packer For vSphere and More
-
-This repo is for creating a consistent and repeatable VM templates. No matter
-whether creating locally or remotely to vSphere, the base image development will
-remain identical. This ensures that environments are built the same.
+<!-- /TOC -->
 
 ## Requirements
 
