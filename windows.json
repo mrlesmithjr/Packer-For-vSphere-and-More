@@ -65,6 +65,8 @@
       "iso_url": "{{ user `iso_url` }}",
       "output_directory": "output-{{ user `vm_name` }}-{{ build_type }}-{{ timestamp }}",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+      "tools_upload_flavor": "windows",
+      "tools_upload_path": "c:/Windows/Temp/windows.iso",
       "type": "vmware-iso",
       "vm_name": "{{ user `vm_name` }}-{{ timestamp }}",
       "vmx_data": {
