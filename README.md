@@ -27,6 +27,7 @@ remain identical. This ensures that environments are built the same.
       - [Ubuntu 14.04](#ubuntu-1404-1)
       - [Ubuntu 16.04](#ubuntu-1604-1)
       - [Ubuntu 18.04](#ubuntu-1804-1)
+      - [Windows 2012 R2](#windows-2012-r2)
       - [Windows 2016](#windows-2016)
     - [Using Vagrant](#using-vagrant)
       - [Vagrant Boxes](#vagrant-boxes)
@@ -218,6 +219,12 @@ packer build -var-file=private_variables.json -var-file=variables.json -var-file
 
 ```bash
 packer build -var-file=private_variables.json -var-file=variables.json -var-file=ubuntu1804.json ubuntu.json
+```
+
+#### Windows 2012 R2
+
+```bash
+packer build -var-file=private_variables.json -var-file=variables.json -var-file=windows_2012_r2.json windows.json
 ```
 
 #### Windows 2016
