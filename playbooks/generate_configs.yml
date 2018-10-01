@@ -1,6 +1,12 @@
 - hosts: localhost
   gather_facts: false
   connection: local
+  vars:
+    windows:
+      - version: 2012r2
+        edition: Windows Server 2012 R2 SERVERSTANDARD
+      - version: 2016
+        edition: Windows Server 2016 SERVERSTANDARD
   tasks:
     - name: Ensuring ../http Folder Exists
       file:
@@ -15,7 +21,17 @@
         - centos
         - debian
         - ubuntu
-        - windows/2016
+
+    - name: Ensuring ../answer_files Folder Exists
+      file:
+        path: ../answer_files
+        state: directory
+
+    - name: Ensuring ../answer_files For Windows Versions Folders Exist
+      file:
+        path: "../answer_files/{{ item['version'] }}"
+        state: directory
+      with_items: "{{ windows }}"
 
     - name: Generating Kickstart Configuration
       template:
@@ -32,10 +48,11 @@
         src: templates/debian_preseed.cfg.j2
         dest: ../http/debian/preseed.cfg
 
-    - name: Generating Windows 2016 Autounattend Configuration
+    - name: Generating Windows Autounattend Configurations
       template:
-        src: templates/Autounattend_2016.xml.j2
-        dest: ../http/windows/2016/Autounattend.xml
+        src: "templates/Autounattend.xml.j2"
+        dest: "../answer_files/{{ item['version'] }}/Autounattend.xml"
+      with_items: "{{ windows }}"
 
     - name: Generating Packer Variables
       template:
