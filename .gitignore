@@ -2,9 +2,10 @@
 *.box
 accounts.yml
 GuestIPHack.ps1
-http/*
+http/
 manifest.json
 output-*
 packer_cache/
 private_variables.json
 Vagrantfile
+answer_files/
