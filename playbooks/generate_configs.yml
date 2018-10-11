@@ -3,6 +3,8 @@
   connection: local
   vars:
     windows:
+      - version: 10
+        edition: Windows 10 Enterprise Evaluation
       - version: 2012r2
         edition: Windows Server 2012 R2 SERVERSTANDARD
       - version: 2016
