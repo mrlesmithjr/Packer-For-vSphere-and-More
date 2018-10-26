@@ -49,6 +49,7 @@
       "ssh_wait_timeout": "60m",
       "type": "vmware-iso",
       "vm_name": "{{ user `vm_name` }}-{{ timestamp }}",
+      "vnc_disable_password": true,
       "vmx_data": {
         "memsize": "{{ user `vm_memory` }}",
         "numvcpus": "{{ user `vm_vcpu` }}",

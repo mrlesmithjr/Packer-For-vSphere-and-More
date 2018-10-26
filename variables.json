@@ -1,8 +1,8 @@
 {
-  "esxi_remote_host": "esxi-01.lab.etsbv.internal",
+  "esxi_remote_host": "10.0.101.61",
   "vcenter_cluster": "LAB-Cluster",
   "vcenter_datacenter": "LAB",
-  "vcenter_datastore": "vSphere_iSCSI_Datastore_2",
+  "vcenter_datastore": "vsphere-datastore-1",
   "vcenter_host": "vcsa.lab.etsbv.internal",
   "vcenter_insecure": "true",
   "vm_disk_adapter_type": "scsi",
@@ -10,5 +10,5 @@
   "vm_disk_size": "73728",
   "vm_memory": "1024",
   "vm_vcpu": "1",
-  "vm_network": "VSS-VLAN-102"
+  "vm_network": "VSS-VLAN-101"
 }
