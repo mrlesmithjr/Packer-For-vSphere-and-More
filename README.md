@@ -1,4 +1,7 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+> [!CAUTION]
+> **This project is archived and no longer maintained.**
+> Archived: 2026-03-26
+> Reason: Legacy Packer/vSphere tooling; superseded by cloud-native workflows<!-- START doctoc generated TOC please keep comment here to allow auto update -->
 
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
